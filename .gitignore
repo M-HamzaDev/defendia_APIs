@@ -11,6 +11,7 @@ npm-debug.log*
 
 # Directory for local environment configurations
 .env.local
+.env
 
 # Debugging files
 npm-debug.log*
