@@ -1,0 +1,28 @@
+# Node modules directory
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables file
+.env
+
+# Directory for local environment configurations
+.env.local
+
+# Debugging files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+
+# Build directories
+dist/
+build/
+
+# Coverage directory used by testing tools
+coverage/
