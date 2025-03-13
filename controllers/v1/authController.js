@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const User = require('../../models/user-modal'); // Ensure this path points to your User model
+const User = require('../../models/user-modal');
 const secret_Key = 'My_secret_Key';
 exports.signup = async (req, res) => {
     try {
@@ -22,15 +22,14 @@ exports.signup = async (req, res) => {
             firstName,
             lastName,
             email,
-            password, // Ensure you hash the password before saving in a real application
+            password, 
             birthday,
             profileImageUrl
         });
 
-        // Save the user to the database
+    
         await newUser.save();
 
-        // Generate a JWT token
         const token = jwt.sign({ id: newUser._id, phoneNumber: newUser.phoneNumber }, secret_Key, { expiresIn: '7d' });
 
         return res.status(200).json({ message: "User registered successfully.", user: newUser, token });
@@ -46,15 +45,13 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: "Phone number and password are required." });
         }
 
-        // Find the user by phone number
         const user = await User.findOne({ phoneNumber });
 
-        // Check if user exists and if the password matches
-        if (!user || user.password !== password) { // In a real application, use a password comparison function
+
+        if (!user || user.password !== password) { 
             return res.status(401).json({ message: "Invalid phone number or password." });
         }
 
-        // Generate a JWT token
         const token = jwt.sign({ id: user._id, phoneNumber: user.phoneNumber }, secret_Key, { expiresIn: '7d' });
 
         return res.status(200).json({ message: "Login successful.", user, token });
