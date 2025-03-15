@@ -9,12 +9,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const authRoutes = require('./routes/v1/authRoute');
+const appRoutes = require('./routes/v1/appRoute');
+
 const { connectToDatabase } = require('./db/mongodb');
+app.use("/uploads", express.static("uploads"));
+
 // const appRoutes = require('./Routes/v1/appRoutes');
 
 // Routes
 app.use('/api/auth', authRoutes);
-// app.use('/api', appRoutes);
+app.use('/api', appRoutes);
 
 // Sync databas
 // db.sequelize.sync({ alter: true })
