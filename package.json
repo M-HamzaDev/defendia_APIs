@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "npm install --production && npm prune --production",
+    "serve": "node index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

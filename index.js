@@ -15,7 +15,6 @@ const { connectToDatabase } = require('./db/mongodb');
 app.use("/uploads", express.static("uploads"));
 
 // const appRoutes = require('./Routes/v1/appRoutes');
-
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', appRoutes);
