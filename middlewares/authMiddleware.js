@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../database'); 
+const User = require('../models/user-modal');
 const secret_Key = 'My_secret_Key';
 
 const authenticateJWT = async (req, res, next) => {

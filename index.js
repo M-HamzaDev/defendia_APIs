@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const db = require('./database');
 const app = express();
 
 app.use(cors());
@@ -28,14 +27,40 @@ app.use('/api', appRoutes);
 //     console.error('Error syncing database:', error);
 //   });
 
+
+// Add root route for verification
+app.get('/', (req, res) => {
+  res.json({ message: "Server is running successfully!" });
+});
+
+// ... rest of your routes and middleware
+
 const PORT = process.env.PORT || 3005;
 
 (async () => {
-  await connectToDatabase(); // Connect to MongoDB first
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
+  try {
+    await connectToDatabase();
+    app.listen(PORT, () => {
+      // Startup message with important information
+      console.log(`
+      =============================================
+       Server successfully started!
+       Port: ${PORT}
+       Environment: ${process.env.NODE_ENV || 'development'}
+       Timestamp: ${new Date().toISOString()}
+      =============================================
+      `);
+    });
+  } catch (error) {
+    console.error("🔥 Server startup failed:", error);
+    process.exit(1);
+  }
 })();
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 // app.listen(PORT, () => {
 //   console.log(`Server is running on port ${PORT}.`);
 // });
